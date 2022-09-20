@@ -1,0 +1,8 @@
+var/
+etc/nginx/.htpasswd
+etc/alertmanager/
+*cert.pem*
+*privkey.pem*
+*fullchain.pem*
+*chain.pem*
+.idea
