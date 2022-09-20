@@ -1,0 +1,74 @@
+
+rule_files:
+  - "prometheus_rules.yml"
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+
+scrape_configs:
+
+     
+
+  - job_name: 'alertmanager'
+      # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['alertmanager:9093']
+    # http://alertmanager:9093/metrics
+    metrics_path: metrics
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '.*'
+        target_label: instance
+        replacement: 'alertmanager.lab.enode.ro'
+
+  - job_name: 'grafana'
+      # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['grafana:3000']
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '.*'
+        target_label: instance
+        replacement: 'grafana.lab.enode.ro'
+   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+      # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['localhost:9090']
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '.*'
+        target_label: instance
+        replacement: 'prometheus.lab.enode.ro'
+        
+  - job_name: cadvisor
+    scrape_interval: 60s
+    static_configs:
+      - targets:
+          - cadvisor:8080
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '.*'
+        target_label: instance
+
+  - job_name: 'mysql'
+    scrape_interval: 30s
+    metrics_path: /mysql/metrics
+    static_configs:
+      - targets: ['mysql']
+        labels:
+          name: mysql-prometheus-exporter:9104
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        # The mysqld_exporter host:port
+        replacement: mysql-prometheus-exporter:9104
