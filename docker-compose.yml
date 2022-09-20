@@ -7,9 +7,7 @@ services:
     depends_on:
       - prometheus
       - grafana
-      - alertmanager
-    links:
-      - prometheus
+
     volumes:
       # 8081 -> http://prometheus:9090
       - ./etc/nginx/reverse_proxy.conf:/etc/nginx/conf.d/default.conf
