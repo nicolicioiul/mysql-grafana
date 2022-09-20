@@ -44,7 +44,6 @@ scrape_configs:
 
   - job_name: 'mysql'
     scrape_interval: 30s
-    metrics_path: /mysql/metrics
     static_configs:
       - targets: ['mysql']
         labels:
