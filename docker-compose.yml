@@ -51,7 +51,7 @@ services:
         GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"  
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor
     container_name: cadvisor
     restart: unless-stopped
     devices:
