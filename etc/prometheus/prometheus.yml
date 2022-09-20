@@ -10,21 +10,6 @@ alerting:
 
 scrape_configs:
 
-     
-
-  - job_name: 'alertmanager'
-      # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['alertmanager:9093']
-    # http://alertmanager:9093/metrics
-    metrics_path: metrics
-    relabel_configs:
-      - source_labels: [__address__]
-        regex: '.*'
-        target_label: instance
-        replacement: 'alertmanager.lab.enode.ro'
-
   - job_name: 'grafana'
       # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 60s

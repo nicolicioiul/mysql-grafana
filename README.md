@@ -7,7 +7,8 @@ Installation
     git pull 
     mkdir -p var/alertmanager/data
     mkdir -p var/grafana/data
-    mkdir -p var/grafana/data
+    mkdir -p var/prometheus/data
+    chmod -R 777 var/*
     docker-compose up -d
 ```
 
