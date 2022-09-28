@@ -80,6 +80,7 @@ services:
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    environment:
-      - DATA_SOURCE_NAME=$user:$pass@tcp($db_host:3306)/database
-     
+    volumes:
+      # config.my-cnf
+      - ./etc/prom-mysql-exporter/my.cnf:/home/.my.cnf:ro
+      - ./etc/prom-mysql-exporter/certs:/home/certs
